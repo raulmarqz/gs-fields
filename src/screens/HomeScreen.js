@@ -16,20 +16,33 @@ import PolygonCreation from '../components/Map/PolygonCreation';
 export default function HomeScreen() {
   const mapView = useRef(null);
 
-  const { createPolygonMode, createPolygonModeType } = useMainContext();
+  const {
+    createPolygonMode,
+    createPolygonModeType,
+    editPolygonMode,
+    setEditPolygonMode,
+    setCoordinates,
+    coordinates,
+  } = useMainContext();
 
-  const [ coordinates, setCoordinates ] = useState([]);
+  // const [ coordinates, setCoordinates ] = useState([]);
 
   useEffect(() => {
     _getLocationAsync();
   }, [])
 
   const handleMapPressed = (event) => {
-    if(createPolygonMode && createPolygonModeType) {
+    if(createPolygonMode && createPolygonModeType && editPolygonMode == false) {
       const { coordinate } = event.nativeEvent;
-      console.log(coordinate);
-      setCoordinates([...coordinates, coordinate])
+      const coordinateData = {
+        id: coordinates.length,
+        ...coordinate
+      }
+      console.log(coordinateData)
+      setCoordinates([...coordinates, coordinateData])
     };
+
+    if(editPolygonMode) setEditPolygonMode(false);
   };
 
   const deleteLastCoordinate = () => {
@@ -53,7 +66,11 @@ export default function HomeScreen() {
         moveOnMarkerPress={false}
         onPress={handleMapPressed}
       >
-        <PolygonCreation coordinates={coordinates}/>
+        <PolygonCreation 
+          setCoordinates={setCoordinates} 
+          coordinates={coordinates} 
+          mapView={mapView}
+        />
       </MapView>
       <FloatButton/>
       <UserLocationButton mapView={mapView}/>

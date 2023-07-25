@@ -7,6 +7,8 @@ export default function MainProvider(props) {
 
 	const [createPolygonMode, setCreatePolygonMode ] = useState(false);
 	const [createPolygonModeType, setCreatePolygonModeType ] = useState(null);
+	const [ editPolygonMode, setEditPolygonMode ] = useState(false);
+	const [ coordinates, setCoordinates ] = useState([]);
 
 	const deactivateCreatePolygonMode = () => {
 		setCreatePolygonMode(false);
@@ -16,9 +18,13 @@ export default function MainProvider(props) {
 	const valueContext = {
 		createPolygonMode,
 		createPolygonModeType,
+		editPolygonMode,
+		coordinates,
 		setCreatePolygonMode,
 		setCreatePolygonModeType,
-		deactivateCreatePolygonMode
+		deactivateCreatePolygonMode,
+		setEditPolygonMode,
+		setCoordinates,
 	};
 
   return (
