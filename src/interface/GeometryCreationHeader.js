@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { WinDiag } from '../utils/constants';
 import useMainContext from '../hooks/useMainContext';
-import { getAreaOfPolygon } from 'geolib';
+import { getAreaOfPolygon, getPathLength } from 'geolib';
 
 const winDiag = WinDiag();
 
@@ -16,9 +16,14 @@ export default function GeometryCreationHeader() {
     return ha.toFixed(2);
    };
 
+   const getPerimeter = () => {
+    const distance = getPathLength(coordinates);
+    return distance;
+   };
+
   return (
     <View style={styles.mainContainer}>
-      <Text style={styles.texts}>Perimetro: 0 m</Text>
+      <Text style={styles.texts}>Perimetro: {getPerimeter()} m</Text>
       <Text style={styles.texts}>Área: {hectareas()} ha</Text>
     </View>
   );
