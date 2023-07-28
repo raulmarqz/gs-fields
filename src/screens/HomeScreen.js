@@ -12,6 +12,7 @@ import CreatePolygonTypeModal from '../interface/CreatePolygonTypeModal';
 import CreatePolygonScreen from './CreatePolygonScreen';
 import HeaderIcons from '../interface/HeaderIcons';
 import PolygonCreation from '../components/Map/PolygonCreation';
+import BottomSheet from '../components/menus/BootomSheet';
 
 export default function HomeScreen() {
   const mapView = useRef(null);
@@ -77,6 +78,7 @@ export default function HomeScreen() {
       <Extent/>
       <CreatePolygonTypeModal/>
       <CreatePolygonScreen deleteLastCoordinate={deleteLastCoordinate}/>
+      <BottomSheet/>
     </View>
   );
 };

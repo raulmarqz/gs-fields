@@ -1,27 +1,33 @@
+import { useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 import useMainContext from "../hooks/useMainContext";
 import { useNavigation } from "@react-navigation/native";
 import { WinDiag } from "../utils/constants";
-import { useEffect } from "react";
 
 const winDiag = WinDiag()
 
 export default function HeaderIcons() {
   const navigation = useNavigation();
-  const { createPolygonMode, createPolygonModeType, deactivateCreatePolygonMode } = useMainContext();
+  const { 
+    createPolygonMode,
+    createPolygonModeType,
+    deactivateCreatePolygonMode,
+    handleOptionsBottomSheet
+  } = useMainContext();
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <View style={styles.mainContainer}>
           {(createPolygonMode && createPolygonModeType) && <CreatePolygonScreen/>}
-          <Icon name="layers" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
+          <TouchableOpacity onPress={() => handleOptionsBottomSheet()}>
+            <Icon name="layers" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
+          </TouchableOpacity>
         </View>
       )
     })
   }, [createPolygonMode, createPolygonModeType])
-  
 
   const CreatePolygonScreen = () => (
     <View style={styles.createPolygonScreenContainer}>
