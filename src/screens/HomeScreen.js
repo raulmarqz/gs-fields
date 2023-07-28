@@ -53,33 +53,34 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={styles.mainContainer}>
-      <HeaderIcons />
-      <MapView
-        ref={mapView}
-        initialRegion={INITIAL_REGION}
-        onMapReady={() => ZoomToUserLocation(mapView)}
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        mapType={"satellite"}
-        showsUserLocation={true}
-        showsMyLocationButton={false}
-        moveOnMarkerPress={false}
-        onPress={handleMapPressed}
-      >
-        <PolygonCreation 
-          setCoordinates={setCoordinates} 
-          coordinates={coordinates} 
-          mapView={mapView}
-        />
-      </MapView>
-      <FloatButton/>
-      <UserLocationButton mapView={mapView}/>
-      <Extent/>
-      <CreatePolygonTypeModal/>
-      <CreatePolygonScreen deleteLastCoordinate={deleteLastCoordinate}/>
-      <BottomSheet/>
-    </View>
+    <>
+      <View style={styles.mainContainer}>
+        <HeaderIcons />
+        <MapView
+          ref={mapView}
+          initialRegion={INITIAL_REGION}
+          onMapReady={() => ZoomToUserLocation(mapView)}
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          mapType={"satellite"}
+          showsUserLocation={true}
+          showsMyLocationButton={false}
+          moveOnMarkerPress={false}
+          onPress={handleMapPressed}
+        >
+          <PolygonCreation 
+            setCoordinates={setCoordinates} 
+            coordinates={coordinates} 
+            mapView={mapView}
+          />
+        </MapView>
+        <FloatButton/>
+        <UserLocationButton mapView={mapView}/>
+        <Extent/>
+        <CreatePolygonTypeModal/>
+        <CreatePolygonScreen deleteLastCoordinate={deleteLastCoordinate}/>
+      </View>
+    </>
   );
 };
 

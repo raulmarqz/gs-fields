@@ -8,6 +8,7 @@ export default function App() {
     <MainProvider>
       <NavigationContainer>
         <Stack />
+        <BottomSheet/>
       </NavigationContainer>
     </MainProvider>
   );

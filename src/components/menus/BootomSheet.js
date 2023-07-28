@@ -3,46 +3,62 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import BottomSheet from "react-native-bottomsheet-reanimated";
 import useMainContext from '../../hooks/useMainContext';
 import { Icon } from 'react-native-elements';
+import { WinDiag } from '../../utils/constants';
+
+const winDiag = WinDiag();
 
 export default function BootomSheet() {
   const bottomSheetRef = useRef(null);
 
-  const { 
+  const {
     setShowOptionsBottomSheet,
     showOptionsBottomSheet
   } = useMainContext();
 
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
+  const HeaderItem = () => (
+    <TouchableOpacity onPress={() => handleShowBottomSheet()} style={styles.headerItemContainer}>
+      <Icon name="close" type="material-community"/>
+    </TouchableOpacity>
+  );
+
+  const handleShowBottomSheet = () => {
+    setShowOptionsBottomSheet(false)
+  };
+
+  const BodyItem = () => (
+    <View>
+      <View style={styles.mapsContainer}>
+        <TouchableOpacity style={styles.mapsItem}>
+          <Icon name="map-outline" type="material-community" size={winDiag*5} color="rgba(180,180,180,0.8)"/>
+          <Text>Normal</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.mapsItem}>
+          <Icon name="satellite-uplink" type="material-community" size={winDiag*5} color="rgba(180,180,180,0.8)"/>
+          <Text>Satelite</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.mapsItem}>
+          <Icon name="terrain" type="material-community" size={winDiag*5} color="rgba(180,180,180,0.8)"/>
+          <Text>Terreno</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 
   if(showOptionsBottomSheet == false ) return null;
   return (
-    <>
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        initialPosition={'50%'}
-        snapPoints={['50%', '100%']}
-        enablePanDownToClose={true}
-        bottomSheerColor="#FFFFFF"
-        isBackDrop={true}
-        isBackDropDismissByPress={true}
-        isRoundBorderWithTipHeader={true}
-      >
-          <TouchableOpacity 
-            onPress={() => setShowOptionsBottomSheet(false)}
-            style={{
-              position: "absolute",
-              right: 0,
-              top: 0
-            }}
-          >
-            <Icon name="close" type="material-community"/>
-          </TouchableOpacity>
-        <View style={styles.contentContainer}>
-          <Text>Awesome 🎉</Text>
-        </View>
-      </BottomSheet>
-    </>
+    <BottomSheet
+      keyboardAware
+      ref={bottomSheetRef}
+      initialPosition={"40%"}
+      snapPoints={["0%","40%","50%","60%","70%","80%","90%","100%"]}
+      bottomSheerColor="#FFFFFF"
+      isBackDrop={true}
+      isBackDropDismisByPress={true}
+      isRoundBorderWithTipHeader={true}
+      dragEnabled={true}
+      header={<HeaderItem/>}
+      body={<BodyItem/>}
+    />
   );
 };
 
@@ -56,4 +72,20 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  headerItemContainer: {
+    position: "absolute",
+    right: winDiag*1,
+    top: winDiag*1
+  },
+  mapsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginTop: winDiag*2
+  },
+  mapsItem: {
+    height: winDiag*10,
+    width: winDiag*10,
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });
