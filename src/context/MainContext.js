@@ -11,6 +11,8 @@ export default function MainProvider(props) {
 	const [ editPolygonMode, setEditPolygonMode ] = useState(false);
 	const [ coordinates, setCoordinates ] = useState([]);
   const [ showOptionsBottomSheet, setShowOptionsBottomSheet ] = useState(false);
+  const [ mapType, setMapType ] = useState('hybrid');
+  const [ visibleLayers, setVisibleLayers ] = useState([]);
 
 	const deactivateCreatePolygonMode = () => {
 		setCreatePolygonMode(false);
@@ -31,12 +33,25 @@ export default function MainProvider(props) {
     }
   };
 
+  const handleVisibleLayers = (layer) => {
+    if(visibleLayers.includes(layer)){
+      const layers = visibleLayers.filter(l => l != layer);
+      setVisibleLayers(layers);
+    } else {
+      const newLayers = [...visibleLayers];
+      newLayers.push(layer);
+      setVisibleLayers(newLayers);
+    };
+  };
+
 	const valueContext = {
 		createPolygonMode,
 		createPolygonModeType,
 		editPolygonMode,
 		coordinates,
     showOptionsBottomSheet,
+    mapType,
+    visibleLayers,
 		setCreatePolygonMode,
 		setCreatePolygonModeType,
 		deactivateCreatePolygonMode,
@@ -44,6 +59,9 @@ export default function MainProvider(props) {
 		setCoordinates,
     setShowOptionsBottomSheet,
     handleOptionsBottomSheet,
+    setMapType,
+    setVisibleLayers,
+    handleVisibleLayers
 	};
 
   return (

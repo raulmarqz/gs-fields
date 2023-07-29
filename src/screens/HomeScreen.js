@@ -24,6 +24,7 @@ export default function HomeScreen() {
     setEditPolygonMode,
     setCoordinates,
     coordinates,
+    mapType,
   } = useMainContext();
 
   // const [ coordinates, setCoordinates ] = useState([]);
@@ -62,7 +63,7 @@ export default function HomeScreen() {
           onMapReady={() => ZoomToUserLocation(mapView)}
           style={styles.map}
           provider={PROVIDER_GOOGLE}
-          mapType={"satellite"}
+          mapType={mapType}
           showsUserLocation={true}
           showsMyLocationButton={false}
           moveOnMarkerPress={false}
