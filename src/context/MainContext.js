@@ -13,6 +13,7 @@ export default function MainProvider(props) {
   const [ showOptionsBottomSheet, setShowOptionsBottomSheet ] = useState(false);
   const [ mapType, setMapType ] = useState('hybrid');
   const [ visibleLayers, setVisibleLayers ] = useState([]);
+  const [ groupSelected, setGroupSelected ] = useState({id: '0', name:'Sin grupo', color: 'rgba(90,255,195,0.8)'})
 
 	const deactivateCreatePolygonMode = () => {
 		setCreatePolygonMode(false);
@@ -52,6 +53,7 @@ export default function MainProvider(props) {
     showOptionsBottomSheet,
     mapType,
     visibleLayers,
+    groupSelected,
 		setCreatePolygonMode,
 		setCreatePolygonModeType,
 		deactivateCreatePolygonMode,
@@ -61,7 +63,8 @@ export default function MainProvider(props) {
     handleOptionsBottomSheet,
     setMapType,
     setVisibleLayers,
-    handleVisibleLayers
+    handleVisibleLayers,
+    setGroupSelected,
 	};
 
   return (

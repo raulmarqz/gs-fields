@@ -34,11 +34,19 @@ export default function HeaderIcons() {
       <TouchableOpacity onPress={() => deactivateCreatePolygonMode()}>
         <Icon name="close" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("SaveMeasurementScreen")}>
         <Icon name="content-save" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
       </TouchableOpacity>
     </View>
   );
+
+  const GroupsScreen = () => {
+    <View>
+      <TouchableOpacity onPress={() => navigation.navigate("SaveMeasurementScreen")}>
+        <Icon name="plus" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
+      </TouchableOpacity>
+    </View>
+  };
 
   return null;
 };

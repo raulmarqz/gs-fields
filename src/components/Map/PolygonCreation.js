@@ -53,8 +53,8 @@ export default function PolygonCreation({ mapView }) {
     const init = {latitude: prevCamera?.center?.latitude, longitude: prevCamera?.center?.longitude};
     const final = {latitude: camera?.center?.latitude, longitude: camera?.center?.longitude}
 
-    const mov_x = final.latitude - init.latitude;
-    const mov_y = final.longitude - init.longitude;
+    const mov_x = (final.latitude - init.latitude);
+    const mov_y = (final.longitude - init.longitude);
 
     return {x: mov_x, y: mov_y};
   };

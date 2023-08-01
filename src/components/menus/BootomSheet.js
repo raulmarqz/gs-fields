@@ -81,11 +81,11 @@ export default function BootomSheet() {
         <Divider height={winDiag*0.2}/>
       </View>
       <View>
-        <Text></Text>
+        <Text style={styles.measurementsTitle}>Mediciones: </Text>
         <View style={styles.layersContainer}>
           <TouchableOpacity 
             style={[
-              styles.mapsItem,
+              styles.layerItem,
               visibleLayers.includes("distance") ? {
                 borderWidth: winDiag*0.2,
                 borderColor: "rgba(0,212,255, 1)",
@@ -99,7 +99,7 @@ export default function BootomSheet() {
           </TouchableOpacity>
           <TouchableOpacity 
             style={[
-              styles.mapsItem,
+              styles.layerItem,
               visibleLayers.includes("polygons") ? {
                 borderWidth: winDiag*0.2,
                 borderColor: "rgba(0,212,255, 1)",
@@ -113,7 +113,7 @@ export default function BootomSheet() {
           </TouchableOpacity>
           <TouchableOpacity 
             style={[
-              styles.mapsItem,
+              styles.layerItem,
               visibleLayers.includes("poi") ? {
                 borderWidth: winDiag*0.2,
                 borderColor: "rgba(0,212,255, 1)",
@@ -138,7 +138,7 @@ export default function BootomSheet() {
       initialPosition={"40%"}
       snapPoints={["0%","40%","50%","60%","70%","80%","90%","100%"]}
       bottomSheerColor="#FFFFFF"
-      isBackDrop={true}
+      // isBackDrop={true}
       isBackDropDismisByPress={true}
       isRoundBorderWithTipHeader={true}
       dragEnabled={true}
@@ -183,5 +183,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginTop: winDiag*2,
+  },
+  layerItem: {
+    height: winDiag*10,
+    width: winDiag*10,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  measurementsTitle: {
+    fontSize: winDiag*1.9,
+    marginLeft: winDiag*1,
+    color: "rgba(90,90,90,1)",
+    marginTop: winDiag*1
   }
 });

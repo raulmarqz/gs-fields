@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import MapView, { MAP_TYPES, PROVIDER_GOOGLE, ProviderPropType, Marker, Polygon } from 'react-native-maps';
+import { View, StyleSheet } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import FloatButton from '../components/Map/FloatButton';
 import UserLocationButton from '../components/Map/UserLocationButton';
 import Extent from '../components/Map/ExtentButton';
@@ -12,7 +12,6 @@ import CreatePolygonTypeModal from '../interface/CreatePolygonTypeModal';
 import CreatePolygonScreen from './CreatePolygonScreen';
 import HeaderIcons from '../interface/HeaderIcons';
 import PolygonCreation from '../components/Map/PolygonCreation';
-import BottomSheet from '../components/menus/BootomSheet';
 
 export default function HomeScreen() {
   const mapView = useRef(null);
