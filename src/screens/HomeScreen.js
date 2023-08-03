@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import FloatButton from '../components/Map/FloatButton';
@@ -12,6 +12,8 @@ import CreatePolygonTypeModal from '../interface/CreatePolygonTypeModal';
 import CreatePolygonScreen from './CreatePolygonScreen';
 import HeaderIcons from '../interface/HeaderIcons';
 import PolygonCreation from '../components/Map/PolygonCreation';
+import MeasurementDetailsScreen from './MeasurementDetailsScreen';
+import Measurements from '../components/Map/Measurements';
 
 export default function HomeScreen() {
   const mapView = useRef(null);
@@ -39,7 +41,6 @@ export default function HomeScreen() {
         id: coordinates.length,
         ...coordinate
       }
-      console.log(coordinateData)
       setCoordinates([...coordinates, coordinateData])
     };
 
@@ -55,7 +56,7 @@ export default function HomeScreen() {
   return (
     <>
       <View style={styles.mainContainer}>
-        <HeaderIcons />
+        <HeaderIcons screen="HomeScreen"/>
         <MapView
           ref={mapView}
           initialRegion={INITIAL_REGION}
@@ -68,6 +69,7 @@ export default function HomeScreen() {
           moveOnMarkerPress={false}
           onPress={handleMapPressed}
         >
+          <Measurements/>
           <PolygonCreation 
             setCoordinates={setCoordinates} 
             coordinates={coordinates} 
@@ -78,6 +80,7 @@ export default function HomeScreen() {
         <UserLocationButton mapView={mapView}/>
         <Extent/>
         <CreatePolygonTypeModal/>
+        <MeasurementDetailsScreen/>
         <CreatePolygonScreen deleteLastCoordinate={deleteLastCoordinate}/>
       </View>
     </>

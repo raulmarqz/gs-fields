@@ -7,27 +7,42 @@ import { WinDiag } from "../utils/constants";
 
 const winDiag = WinDiag()
 
-export default function HeaderIcons() {
+export default function HeaderIcons({screen}) {
   const navigation = useNavigation();
-  const { 
+
+  const {
     createPolygonMode,
     createPolygonModeType,
     deactivateCreatePolygonMode,
-    handleOptionsBottomSheet
+    handleOptionsBottomSheet,
+    SaveMeasurement,
+    measurementName
   } = useMainContext();
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <View style={styles.mainContainer}>
-          {(createPolygonMode && createPolygonModeType) && <CreatePolygonScreen/>}
-          <TouchableOpacity onPress={() => handleOptionsBottomSheet()}>
-            <Icon name="layers" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
-          </TouchableOpacity>
-        </View>
+        <>
+          {screen == 'HomeScreen' &&
+            <View style={styles.mainContainer}>
+              {(createPolygonMode && createPolygonModeType) && <CreatePolygonScreen/>}
+              <TouchableOpacity onPress={() => handleOptionsBottomSheet()}>
+                <Icon name="layers" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
+              </TouchableOpacity>
+            </View>
+          }
+          {screen == 'SaveMeasurementScreen' &&
+            <View style={styles.mainContainer}>
+              <TouchableOpacity onPress={() => handleSaveMeasurement()}>
+              {/* <TouchableOpacity onPress={() => SaveMeasurement()}> */}
+                <Icon name="content-save" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
+              </TouchableOpacity>
+            </View>
+          }
+        </>
       )
     })
-  }, [createPolygonMode, createPolygonModeType])
+  }, [createPolygonMode, createPolygonModeType, measurementName])
 
   const CreatePolygonScreen = () => (
     <View style={styles.createPolygonScreenContainer}>
@@ -46,6 +61,12 @@ export default function HeaderIcons() {
         <Icon name="plus" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
       </TouchableOpacity>
     </View>
+  };
+
+  const handleSaveMeasurement = () => {
+    deactivateCreatePolygonMode();
+    SaveMeasurement();
+    navigation.goBack();
   };
 
   return null;

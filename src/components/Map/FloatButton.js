@@ -6,7 +6,12 @@ import useMainContext from '../../hooks/useMainContext';
 
 export default function FloatButton() {
 
-  const { setCreatePolygonMode, createPolygonMode, createPolygonModeType } = useMainContext()
+  const { 
+    setCreatePolygonMode,
+    createPolygonMode,
+    createPolygonModeType,
+    setCreationType
+  } = useMainContext()
 
   const actions = [
     {
@@ -33,7 +38,7 @@ export default function FloatButton() {
   ];
 
   const handlePressItem = (name) => {
-    if(name == 'area') setCreatePolygonMode('area');
+    if(name == 'area') setCreatePolygonMode('area'), setCreationType('area');
   };
 
   if((createPolygonMode && createPolygonModeType)) return null

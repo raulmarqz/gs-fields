@@ -86,13 +86,13 @@ export default function BootomSheet() {
           <TouchableOpacity 
             style={[
               styles.layerItem,
-              visibleLayers.includes("distance") ? {
+              visibleLayers.includes("distances") ? {
                 borderWidth: winDiag*0.2,
                 borderColor: "rgba(0,212,255, 1)",
                 borderRadius: winDiag*1
               } : null
             ]} 
-            onPress={() => handleVisibleLayers('distance')}
+            onPress={() => handleVisibleLayers('distances')}
             >
             <Icon name="route" type="font-awesome-5" size={winDiag*4} color="rgba(180,180,180,0.8)"/>
             <Text>Distancias</Text>
@@ -100,13 +100,13 @@ export default function BootomSheet() {
           <TouchableOpacity 
             style={[
               styles.layerItem,
-              visibleLayers.includes("polygons") ? {
+              visibleLayers.includes("areas") ? {
                 borderWidth: winDiag*0.2,
                 borderColor: "rgba(0,212,255, 1)",
                 borderRadius: winDiag*1
               } : null
             ]} 
-            onPress={() => handleVisibleLayers('polygons')}
+            onPress={() => handleVisibleLayers('areas')}
           >
             <Icon name="draw-polygon" type="font-awesome-5" size={winDiag*4} color="rgba(180,180,180,0.8)"/>
             <Text>Áreas</Text>
