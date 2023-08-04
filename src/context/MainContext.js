@@ -13,6 +13,7 @@ export default function MainProvider(props) {
   const [ poi, setPOI ] = useState([]);
 	const [ createPolygonMode, setCreatePolygonMode ] = useState(false);
 	const [ createPolygonModeType, setCreatePolygonModeType ] = useState(null);
+  const [ editMeasurementMode, setEditMeasurementMode ] = useState(false);
   const [ creationType, setCreationType ] = useState('')
 	const [ editPolygonMode, setEditPolygonMode ] = useState(false);
   const [ measurementDetailsMode, setMeasurementDetailsMode ] = useState(false);
@@ -28,7 +29,7 @@ export default function MainProvider(props) {
 
   useEffect(() => {
     getMeasurements();
-  }, [])
+  }, []);
   
   const getMeasurements = async() => {
     const measurements = await Storage.instance.getAllMeasurements();
@@ -37,12 +38,24 @@ export default function MainProvider(props) {
     setDistances(measurements.distances);
     setPOI(measurements.poi);
   };
+
 	const deactivateCreatePolygonMode = () => {
 		setCreatePolygonMode(false);
 		setCreatePolygonModeType(null);
     setEditPolygonMode(false);
     setCoordinates([]);
 	};
+
+  const deactivateDetailsMode = () => {
+    setMeasurementDetailsMode(false);
+    setMeasurementSelected(null);
+  };
+
+  const activateEditionMode = () => {
+    setMeasurementDetailsMode(true);
+    setCoordinates(measurementSelected.coordinates);
+    setMeasurementSelected(null);
+  };
 
   const handleOptionsBottomSheet = () => {
     if(showOptionsBottomSheet) {
@@ -80,7 +93,7 @@ export default function MainProvider(props) {
       console.log(data)
       setMeasurementSelected(data);
       setMeasurementDetailsMode(true);
-      
+      handleVisibleLayers(creationType);
       const response = await Storage.instance.saveMeasurement(creationType, data);
       getMeasurements();
       return response;
@@ -94,12 +107,29 @@ export default function MainProvider(props) {
     const area = getAreaOfPolygon(coordinates);
     const ha = area/10000;
     return ha.toFixed(2);
-   };
+  };
 
-   const getPerimeter = () => {
-    const distance = getPathLength(coordinates);
-    return distance;
-   };
+  const getPerimeter = () => {
+  const distance = getPathLength(coordinates);
+  return distance;
+  };
+
+  const handleMeasurementPress = (item) => {
+    setMeasurementSelected(item);
+    setMeasurementDetailsMode(true);
+  };
+
+  const deleteMeasurement = async() => {
+    try {
+      const response = await Storage.instance.deleteMeasurement(measurementSelected);
+      setMeasurementDetailsMode(false);
+      setMeasurementSelected(null);
+      getMeasurements();
+      return response;
+    } catch (error) {
+      
+    }
+  };
 
 	const valueContext = {
 		createPolygonMode,
@@ -117,6 +147,7 @@ export default function MainProvider(props) {
     areas,
     distances, 
     poi,
+    editMeasurementMode,
 		setCreatePolygonMode,
 		setCreatePolygonModeType,
     setCreationType,
@@ -132,7 +163,12 @@ export default function MainProvider(props) {
     setMeasurementName,
     SaveMeasurement,
     setMeasurementDetailsMode,
-    setMeasurementSelected
+    setMeasurementSelected,
+    handleMeasurementPress,
+    deleteMeasurement,
+    deactivateDetailsMode,
+    activateEditionMode,
+    setEditMeasurementMode
 	};
   
   return (

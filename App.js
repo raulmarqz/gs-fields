@@ -4,6 +4,7 @@ import Stack from './src/stacks/MainStack';
 import MainProvider from './src/context/MainContext';
 import BottomSheet from './src/components/menus/BootomSheet';
 import Storage from './src/libs/Storage';
+import { Provider } from 'react-native-paper';
 
 export default function App() {
   useEffect(() => {
@@ -16,11 +17,13 @@ export default function App() {
   };
 
   return (
-    <MainProvider>
-      <NavigationContainer>
-        <Stack />
-        <BottomSheet/>
-      </NavigationContainer>
-    </MainProvider>
+    <Provider>
+      <MainProvider>
+        <NavigationContainer>
+          <Stack />
+          <BottomSheet/>
+        </NavigationContainer>
+      </MainProvider>
+    </Provider>
   );
 };

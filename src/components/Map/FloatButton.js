@@ -10,7 +10,8 @@ export default function FloatButton() {
     setCreatePolygonMode,
     createPolygonMode,
     createPolygonModeType,
-    setCreationType
+    setCreationType,
+    measurementDetailsMode
   } = useMainContext()
 
   const actions = [
@@ -41,7 +42,7 @@ export default function FloatButton() {
     if(name == 'area') setCreatePolygonMode('area'), setCreationType('area');
   };
 
-  if((createPolygonMode && createPolygonModeType)) return null
+  if((createPolygonMode && createPolygonModeType) || measurementDetailsMode ) return null
   return (
     <View style={styles.mainContainer}>
       <FloatingAction

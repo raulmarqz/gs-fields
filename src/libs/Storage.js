@@ -71,6 +71,22 @@ class Storage {
     };
   };
 
+  deleteMeasurement = async(data) => {
+    try {
+      if(data.measurementType == 'area') {
+        const areas = await this.getData('areas');
+        const areasCopy = [...areas]
+        const newAreas = areasCopy.filter(area => area.uuid != data.uuid);
+        const response = await this.saveData('areas', newAreas);
+        return response;
+      }
+
+    } catch (error) {
+      console.log("delete measurement error: ", error);
+      throw new Error("delete measurement error: ", error);
+    }
+  };
+
 };
 
 export default Storage;

@@ -16,7 +16,10 @@ export default function HeaderIcons({screen}) {
     deactivateCreatePolygonMode,
     handleOptionsBottomSheet,
     SaveMeasurement,
-    measurementName
+    measurementName,
+    measurementDetailsMode,
+    deactivateDetailsMode,
+    editMeasurementMode
   } = useMainContext();
 
   useEffect(() => {
@@ -26,25 +29,32 @@ export default function HeaderIcons({screen}) {
           {screen == 'HomeScreen' &&
             <View style={styles.mainContainer}>
               {(createPolygonMode && createPolygonModeType) && <CreatePolygonScreen/>}
+              {(editMeasurementMode) && <EditMeasurementScreen/>}
+              {measurementDetailsMode && <MeasurementDetailsScreen/>}
               <TouchableOpacity onPress={() => handleOptionsBottomSheet()}>
                 <Icon name="layers" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
               </TouchableOpacity>
             </View>
           }
-          {screen == 'SaveMeasurementScreen' &&
-            <View style={styles.mainContainer}>
-              <TouchableOpacity onPress={() => handleSaveMeasurement()}>
-              {/* <TouchableOpacity onPress={() => SaveMeasurement()}> */}
-                <Icon name="content-save" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
-              </TouchableOpacity>
-            </View>
-          }
+          {screen == 'SaveMeasurementScreen' && <SaveMeasurementScreen/>}
+
         </>
       )
     })
-  }, [createPolygonMode, createPolygonModeType, measurementName])
+  }, [createPolygonMode, createPolygonModeType, measurementName, measurementDetailsMode])
 
   const CreatePolygonScreen = () => (
+    <View style={styles.createPolygonScreenContainer}>
+      <TouchableOpacity onPress={() => deactivateCreatePolygonMode()}>
+        <Icon name="close" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("SaveMeasurementScreen")}>
+        <Icon name="content-save" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const EditMeasurementScreen = () => (
     <View style={styles.createPolygonScreenContainer}>
       <TouchableOpacity onPress={() => deactivateCreatePolygonMode()}>
         <Icon name="close" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
@@ -68,6 +78,23 @@ export default function HeaderIcons({screen}) {
     SaveMeasurement();
     navigation.goBack();
   };
+
+  const SaveMeasurementScreen = () => (
+    <View style={styles.mainContainer}>
+      <TouchableOpacity onPress={() => handleSaveMeasurement()}>
+      {/* <TouchableOpacity onPress={() => SaveMeasurement()}> */}
+        <Icon name="content-save" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const MeasurementDetailsScreen = () => (
+    <View>
+      <TouchableOpacity onPress={() => deactivateDetailsMode()}>
+        <Icon name="close" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
+      </TouchableOpacity>
+    </View>
+  );
 
   return null;
 };

@@ -11,17 +11,20 @@ export default function Measurements() {
     areas,
     distances,
     poi,
-    visibleLayers
+    visibleLayers,
+    handleMeasurementPress
   } = useMainContext();
 
   const renderAreas = () => (
     areas.map(area => (
       <Polygon
         key={area.uuid.toString()}
+        tappable
         coordinates={area.coordinates}
         fillColor={'rgba(90,255,195,0.3)'}
         strokeColor='rgba(90,255,195,0.8)'
         strokeWidth={winDiag*0.3}
+        onPress={() => handleMeasurementPress(area)}
       />
     ))
   );

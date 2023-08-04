@@ -1,14 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { WinDiag } from '../utils/constants';
+import { Icon } from 'react-native-elements';
+import { Portal, Dialog, Button } from 'react-native-paper';
+import useMainContext from '../hooks/useMainContext';
 
 const winDiag = WinDiag();
 
 export default function MeasurementDetailsFooter() {
+  const { 
+    deleteMeasurement,
+    activateEditionMode,
+  } = useMainContext();
+
+  const [ deleteDialog, setDeleteDialog ] = useState(false);
+
+  const handleDeleteMeasurementDialog = () => {
+    setDeleteDialog(true);
+  };
+
+  const handleDeleteMeasurement = () => {
+    setDeleteDialog(false),
+    deleteMeasurement();
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>MeasurementDetailsFooter</Text>
-    </View>
+    <Portal>
+      <View style={styles.container}>
+        <Icon name="navigation-variant" type="material-community" color="white"/>
+        <Icon name="edit" type="material" color="white"/>
+        <Icon name="delete" type="material-community" color="white" onPress={() => handleDeleteMeasurementDialog()}/>
+        <Icon name="share-social" type="ionicon" color="white"/>
+      </View>
+      <Dialog visible={deleteDialog} onDismiss={() => setDeleteDialog(false)}>
+        <Dialog.Content>
+          <Text>¿Eliminar medición?</Text>
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button onPress={() => setDeleteDialog(false)}>Cancelar</Button>
+          <Button onPress={() => handleDeleteMeasurement()}>Aceptar</Button>
+        </Dialog.Actions>
+      </Dialog>
+    </Portal>
   );
 };
 
@@ -23,8 +56,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     bottom: 0,
   },
-  texts: {
-    color: "white",
-    fontSize: winDiag*2
-  }
 });
