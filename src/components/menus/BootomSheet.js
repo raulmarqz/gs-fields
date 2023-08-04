@@ -17,7 +17,8 @@ export default function BootomSheet() {
     setMapType,
     mapType,
     visibleLayers,
-    handleVisibleLayers
+    handleVisibleLayers,
+    handleMapType
   } = useMainContext();
 
   const HeaderItem = () => (
@@ -43,7 +44,7 @@ export default function BootomSheet() {
               borderRadius: winDiag*1
             } : null
           ]} 
-          onPress={() => setMapType('hybrid')}
+          onPress={() => handleMapType('hybrid')}
           >
           <Icon name="satellite-uplink" type="material-community" size={winDiag*5} color="rgba(180,180,180,0.8)"/>
           <Text>Satelite</Text>
@@ -57,7 +58,7 @@ export default function BootomSheet() {
               borderRadius: winDiag*1
             } : null
           ]} 
-          onPress={() => setMapType('standard')}
+          onPress={() => handleMapType('standard')}
         >
           <Icon name="map-outline" type="material-community" size={winDiag*5} color="rgba(180,180,180,0.8)"/>
           <Text>Normal</Text>
@@ -71,7 +72,7 @@ export default function BootomSheet() {
               borderRadius: winDiag*1
             } : null
           ]} 
-          onPress={() => setMapType('terrain')}
+          onPress={() => handleMapType('terrain')}
         >
           <Icon name="terrain" type="material-community" size={winDiag*5} color="rgba(180,180,180,0.8)"/>
           <Text>Terreno</Text>

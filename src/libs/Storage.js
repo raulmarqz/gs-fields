@@ -9,7 +9,11 @@ class Storage {
         areas: [],
         distances: [],
         poi: [],
-        groups: [{id: '0', name:'Sin grupo', color: 'rgba(90,255,195,0.8)'}]
+        groups: [{id: '0', name:'Sin grupo', color: 'rgba(90,255,195,0.8)'}],
+        configuration: {
+          visibleLayers: [],
+          mapType: 'hybrid',
+        }
       };
 
       const keys = await AsyncStorage.getAllKeys();
@@ -27,6 +31,51 @@ class Storage {
   getData = async(key) => {
     const data = await AsyncStorage.getItem(key);
     return JSON.parse(data);
+  };
+
+  setVisibleLayers = async(layer) => {
+    try {
+      const config = await this.getData('configuration');
+      var visibleLayers = config.visibleLayers;
+      const vl = [...visibleLayers];
+
+      if(vl.includes(layer)) {
+        var layers = vl.filter(l => l != layer);
+        config.visibleLayers = layers;
+      } else {
+        var layers = [...vl, layer];
+        config.visibleLayers = layers;
+      };
+
+      const response = await this.saveData('configuration', config);
+      return response;
+    } catch (error) {
+      console.log("set visible layers error: ", error);
+      throw new Error("set visible layers error: ", error);
+    }
+  };
+
+  setMapType = async(mapType) => {
+    try {
+      const config = await this.getData('configuration');
+      config.mapType = mapType;
+
+      const response = await this.saveData('configuration', config);
+      return response;
+    } catch (error) {
+      console.log("set map type error: ", error);
+      throw new Error("set map type error: ", error);
+    }
+  };
+
+  getVisibleLayers = async() => {
+    try {
+      const data = await this.getData('configuration');
+      return ({visibleLayers: data.visibleLayers, mapType: data.mapType});
+    } catch (error) {
+      console.log("get visible layers error: ", error);
+      throw new Error("get visible layers error: ", error);
+    }
   };
 
   getAllMeasurements = async() => {

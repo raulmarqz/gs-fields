@@ -29,6 +29,7 @@ export default function MainProvider(props) {
 
   useEffect(() => {
     getMeasurements();
+    getVisibleLayers();
   }, []);
   
   const getMeasurements = async() => {
@@ -37,6 +38,13 @@ export default function MainProvider(props) {
     setAreas(measurements.areas);
     setDistances(measurements.distances);
     setPOI(measurements.poi);
+  };  
+
+  const getVisibleLayers = async() => {
+    const data = await Storage.instance.getVisibleLayers();
+    console.log("data: ", data);
+    setVisibleLayers(data.visibleLayers);
+    setMapType(data.mapType);
   };
 
 	const deactivateCreatePolygonMode = () => {
@@ -66,15 +74,15 @@ export default function MainProvider(props) {
     }
   };
 
-  const handleVisibleLayers = (layer) => {
-    if(visibleLayers.includes(layer)){
-      const layers = visibleLayers.filter(l => l != layer);
-      setVisibleLayers(layers);
-    } else {
-      const newLayers = [...visibleLayers];
-      newLayers.push(layer);
-      setVisibleLayers(newLayers);
-    };
+  const handleVisibleLayers = async(layer) => {
+    console.log("kjansd")
+    const response = await Storage.instance.setVisibleLayers(layer);
+    getVisibleLayers();
+  };
+
+  const handleMapType = async(mapType) => {
+    const response = await Storage.instance.setMapType(mapType);
+    getVisibleLayers();
   };
 
   const SaveMeasurement = async() => {
@@ -168,7 +176,8 @@ export default function MainProvider(props) {
     deleteMeasurement,
     deactivateDetailsMode,
     activateEditionMode,
-    setEditMeasurementMode
+    setEditMeasurementMode,
+    handleMapType
 	};
   
   return (

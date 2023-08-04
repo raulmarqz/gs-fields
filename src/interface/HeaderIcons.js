@@ -26,7 +26,7 @@ export default function HeaderIcons({screen}) {
     navigation.setOptions({
       headerRight: () => (
         <>
-          {screen == 'HomeScreen' &&
+          {screen == 'HomeScreen' && 
             <View style={styles.mainContainer}>
               {(createPolygonMode && createPolygonModeType) && <CreatePolygonScreen/>}
               {(editMeasurementMode) && <EditMeasurementScreen/>}

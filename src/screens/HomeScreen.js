@@ -69,7 +69,7 @@ export default function HomeScreen() {
           moveOnMarkerPress={false}
           onPress={handleMapPressed}
         >
-          <Measurements/>
+          <Measurements mapView={mapView}/>
           <PolygonCreation 
             setCoordinates={setCoordinates} 
             coordinates={coordinates} 
@@ -78,7 +78,7 @@ export default function HomeScreen() {
         </MapView>
         <FloatButton/>
         <UserLocationButton mapView={mapView}/>
-        <Extent/>
+        <Extent mapView={mapView}/>
         <CreatePolygonTypeModal/>
         <MeasurementDetailsScreen/>
         <CreatePolygonScreen deleteLastCoordinate={deleteLastCoordinate}/>

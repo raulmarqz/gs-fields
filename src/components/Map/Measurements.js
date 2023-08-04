@@ -3,17 +3,24 @@ import { View, Text } from 'react-native';
 import useMainContext from '../../hooks/useMainContext';
 import { Polygon, Marker, Polyline } from 'react-native-maps';
 import { WinDiag } from '../../utils/constants';
+import { ZoomToZone } from '../../utils/mapFunctions';
 
 const winDiag = WinDiag();
 
-export default function Measurements() {
+export default function Measurements({ mapView }) {
   const {
     areas,
     distances,
     poi,
     visibleLayers,
-    handleMeasurementPress
+    handleMeasurementPress,
+    measurementSelected
   } = useMainContext();
+
+  const handlePress = (area) => {
+    handleMeasurementPress(area);
+    ZoomToZone(mapView, 'measurementSelected', area);
+  };
 
   const renderAreas = () => (
     areas.map(area => (
@@ -24,7 +31,7 @@ export default function Measurements() {
         fillColor={'rgba(90,255,195,0.3)'}
         strokeColor='rgba(90,255,195,0.8)'
         strokeWidth={winDiag*0.3}
-        onPress={() => handleMeasurementPress(area)}
+        onPress={() => handlePress(area)}
       />
     ))
   );
