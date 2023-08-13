@@ -7,9 +7,13 @@ import { WinDiag } from '../utils/constants';
 const winDiag = WinDiag();
 
 export default function CreatePolygonTypeModal() {
-  const { createPolygonMode, createPolygonModeType, setCreatePolygonModeType } = useMainContext();
-  
-  if(!(createPolygonMode && createPolygonModeType == null)) return null;
+  const {
+    createMeasurementMode,
+    createPolygonModeType,
+    setCreatePolygonModeType
+  } = useMainContext();
+
+  if(!(createMeasurementMode && createPolygonModeType == null)) return null;
   return (
     <View style={styles.mainContainer}>
       <View style={styles.modalContainer}>

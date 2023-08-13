@@ -9,9 +9,9 @@ import { ZoomToUserLocation } from '../utils/mapFunctions';
 import { INITIAL_REGION } from '../utils/constants';
 import useMainContext from '../hooks/useMainContext';
 import CreatePolygonTypeModal from '../interface/CreatePolygonTypeModal';
-import CreatePolygonScreen from './CreatePolygonScreen';
+import CreateMeasurementScreen from './CreateMeasurementScreen';
 import HeaderIcons from '../interface/HeaderIcons';
-import PolygonCreation from '../components/Map/PolygonCreation';
+import MeasurementCreation from '../components/Map/MeasurementCreation';
 import MeasurementDetailsScreen from './MeasurementDetailsScreen';
 import Measurements from '../components/Map/Measurements';
 
@@ -19,7 +19,7 @@ export default function HomeScreen() {
   const mapView = useRef(null);
 
   const {
-    createPolygonMode,
+    createMeasurementMode,
     createPolygonModeType,
     editPolygonMode,
     setEditPolygonMode,
@@ -35,7 +35,7 @@ export default function HomeScreen() {
   }, [])
 
   const handleMapPressed = (event) => {
-    if(createPolygonMode && createPolygonModeType && editPolygonMode == false) {
+    if(createMeasurementMode && createPolygonModeType && editPolygonMode == false) {
       const { coordinate } = event.nativeEvent;
       const coordinateData = {
         id: coordinates.length,
@@ -70,7 +70,7 @@ export default function HomeScreen() {
           onPress={handleMapPressed}
         >
           <Measurements mapView={mapView}/>
-          <PolygonCreation 
+          <MeasurementCreation 
             setCoordinates={setCoordinates} 
             coordinates={coordinates} 
             mapView={mapView}
@@ -81,7 +81,7 @@ export default function HomeScreen() {
         <Extent mapView={mapView}/>
         <CreatePolygonTypeModal/>
         <MeasurementDetailsScreen/>
-        <CreatePolygonScreen deleteLastCoordinate={deleteLastCoordinate}/>
+        <CreateMeasurementScreen deleteLastCoordinate={deleteLastCoordinate}/>
       </View>
     </>
   );

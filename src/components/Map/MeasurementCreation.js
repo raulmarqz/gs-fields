@@ -5,13 +5,14 @@ import useMainContext from '../../hooks/useMainContext';
 import { WinDiag } from '../../utils/constants';
 import MarkerSelected from './MarkerSelected';
 import MarkerVertex from './MarkerVertex';
-import CreatePolygonScreen from '../../screens/CreatePolygonScreen';
+import CreatePolygonScreen from '../../screens/CreateMeasurementScreen';
 
 const winDiag = WinDiag();
 
-export default function PolygonCreation({ mapView }) {
+export default function MeasurementCreation({ mapView }) {
+  
   const {
-    createPolygonMode,
+    createMeasurementMode,
     createPolygonModeType,
     editPolygonMode,
     setEditPolygonMode,
@@ -75,7 +76,7 @@ export default function PolygonCreation({ mapView }) {
     };
   };
 
-  if(!createPolygonMode || createPolygonModeType == null || coordinates.length <= 0) return null;
+  if(!createMeasurementMode || createPolygonModeType == null || coordinates.length <= 0) return null;
   return (
     <>
       <Polygon

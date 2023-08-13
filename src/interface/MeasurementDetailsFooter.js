@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { WinDiag } from '../utils/constants';
 import { Icon } from 'react-native-elements';
 import { Portal, Dialog, Button } from 'react-native-paper';
@@ -27,10 +27,18 @@ export default function MeasurementDetailsFooter() {
   return (
     <Portal>
       <View style={styles.container}>
-        <Icon name="navigation-variant" type="material-community" color="white"/>
-        <Icon name="edit" type="material" color="white"/>
-        <Icon name="delete" type="material-community" color="white" onPress={() => handleDeleteMeasurementDialog()}/>
-        <Icon name="share-social" type="ionicon" color="white"/>
+        <TouchableOpacity>
+          <Icon name="navigation-variant" type="material-community" color="white"/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => activateEditionMode()}>
+          <Icon name="edit" type="material" color="white"/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleDeleteMeasurementDialog()}>
+          <Icon name="delete" type="material-community" color="white"/>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="share-social" type="ionicon" color="white"/>
+        </TouchableOpacity>
       </View>
       <Dialog visible={deleteDialog} onDismiss={() => setDeleteDialog(false)}>
         <Dialog.Content>

@@ -11,8 +11,8 @@ export default function HeaderIcons({screen}) {
   const navigation = useNavigation();
 
   const {
-    createPolygonMode,
-    createPolygonModeType,
+    createMeasurementMode,
+    createMeasurementModeType,
     deactivateCreatePolygonMode,
     handleOptionsBottomSheet,
     SaveMeasurement,
@@ -28,7 +28,7 @@ export default function HeaderIcons({screen}) {
         <>
           {screen == 'HomeScreen' && 
             <View style={styles.mainContainer}>
-              {(createPolygonMode && createPolygonModeType) && <CreatePolygonScreen/>}
+              {(createMeasurementMode && createMeasurementModeType) && <CreatePolygonScreen/>}
               {(editMeasurementMode) && <EditMeasurementScreen/>}
               {measurementDetailsMode && <MeasurementDetailsScreen/>}
               <TouchableOpacity onPress={() => handleOptionsBottomSheet()}>
@@ -41,7 +41,7 @@ export default function HeaderIcons({screen}) {
         </>
       )
     })
-  }, [createPolygonMode, createPolygonModeType, measurementName, measurementDetailsMode])
+  }, [createMeasurementMode, createMeasurementModeType, measurementName, measurementDetailsMode])
 
   const CreatePolygonScreen = () => (
     <View style={styles.createPolygonScreenContainer}>

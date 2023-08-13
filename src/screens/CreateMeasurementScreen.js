@@ -3,7 +3,7 @@ import GeometryCreationHeader from '../interface/GeometryCreationHeader';
 import GeometryCreationFooter from '../interface/GeometryCreationFooter';
 import useMainContext from '../hooks/useMainContext';
 
-export default function CreatePolygonScreen({deleteLastCoordinate}) {
+export default function CreateMeasurementScreen({deleteLastCoordinate}) {
   const { createPolygonMode, createPolygonModeType } = useMainContext();
 
   if(!(createPolygonMode && createPolygonModeType)) return null;

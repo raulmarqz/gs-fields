@@ -11,8 +11,8 @@ export default function MainProvider(props) {
   const [ areas, setAreas ] = useState([]);
   const [ distances, setDistances ] = useState([]);
   const [ poi, setPOI ] = useState([]);
-	const [ createPolygonMode, setCreatePolygonMode ] = useState(false);
-	const [ createPolygonModeType, setCreatePolygonModeType ] = useState(null);
+	const [ createMeasurementMode, setCreateMeasurementMode ] = useState(false);
+	const [ createMeasurementModeType, setCreateMeasurementModeType ] = useState(null);
   const [ editMeasurementMode, setEditMeasurementMode ] = useState(false);
   const [ creationType, setCreationType ] = useState('')
 	const [ editPolygonMode, setEditPolygonMode ] = useState(false);
@@ -34,7 +34,6 @@ export default function MainProvider(props) {
   
   const getMeasurements = async() => {
     const measurements = await Storage.instance.getAllMeasurements();
-    console.log(measurements)
     setAreas(measurements.areas);
     setDistances(measurements.distances);
     setPOI(measurements.poi);
@@ -42,13 +41,12 @@ export default function MainProvider(props) {
 
   const getVisibleLayers = async() => {
     const data = await Storage.instance.getVisibleLayers();
-    console.log("data: ", data);
     setVisibleLayers(data.visibleLayers);
     setMapType(data.mapType);
   };
 
 	const deactivateCreatePolygonMode = () => {
-		setCreatePolygonMode(false);
+		setCreateMeasurementMode(false);
 		setCreatePolygonModeType(null);
     setEditPolygonMode(false);
     setCoordinates([]);
@@ -60,9 +58,13 @@ export default function MainProvider(props) {
   };
 
   const activateEditionMode = () => {
-    setMeasurementDetailsMode(true);
+    console.log("Activ mode editción")
+    setMeasurementDetailsMode(false);
     setCoordinates(measurementSelected.coordinates);
-    setMeasurementSelected(null);
+    // setMeasurementSelected(null);
+    setCreateMeasurementMode(true);
+    setCreatePolygonModeType('area')
+    setEditMeasurementMode(true);
   };
 
   const handleOptionsBottomSheet = () => {
@@ -98,7 +100,6 @@ export default function MainProvider(props) {
         area: hectareas(),
         perimeter: getPerimeter(),
       };
-      console.log(data)
       setMeasurementSelected(data);
       setMeasurementDetailsMode(true);
       handleVisibleLayers(creationType);
@@ -140,8 +141,8 @@ export default function MainProvider(props) {
   };
 
 	const valueContext = {
-		createPolygonMode,
-		createPolygonModeType,
+		createMeasurementMode,
+		createMeasurementModeType,
     creationType,
 		editPolygonMode,
 		coordinates,
@@ -156,8 +157,8 @@ export default function MainProvider(props) {
     distances, 
     poi,
     editMeasurementMode,
-		setCreatePolygonMode,
-		setCreatePolygonModeType,
+		setCreateMeasurementMode,
+		setCreateMeasurementModeType,
     setCreationType,
 		deactivateCreatePolygonMode,
 		setEditPolygonMode,
