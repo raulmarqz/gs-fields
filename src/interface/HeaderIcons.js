@@ -19,7 +19,8 @@ export default function HeaderIcons({screen}) {
     measurementName,
     measurementDetailsMode,
     deactivateDetailsMode,
-    editMeasurementMode
+    editMeasurementMode,
+    editMeasurementModeType
   } = useMainContext();
 
   useEffect(() => {
@@ -28,9 +29,9 @@ export default function HeaderIcons({screen}) {
         <>
           {screen == 'HomeScreen' && 
             <View style={styles.mainContainer}>
-              {(createMeasurementMode && createMeasurementModeType) && <CreatePolygonScreen/>}
-              {(editMeasurementMode) && <EditMeasurementScreen/>}
-              {measurementDetailsMode && <MeasurementDetailsScreen/>}
+              {(createMeasurementMode && createMeasurementModeType && editMeasurementMode == false) && <CreateMeasurementScreen/>}
+              {(editMeasurementMode && editMeasurementModeType != null) && <EditMeasurementScreen/>}
+              {(measurementDetailsMode) && <MeasurementDetailsScreen/>}
               <TouchableOpacity onPress={() => handleOptionsBottomSheet()}>
                 <Icon name="layers" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>
               </TouchableOpacity>
@@ -43,7 +44,7 @@ export default function HeaderIcons({screen}) {
     })
   }, [createMeasurementMode, createMeasurementModeType, measurementName, measurementDetailsMode])
 
-  const CreatePolygonScreen = () => (
+  const CreateMeasurementScreen = () => (
     <View style={styles.createPolygonScreenContainer}>
       <TouchableOpacity onPress={() => deactivateCreatePolygonMode()}>
         <Icon name="close" type="material-community" size={winDiag*3} color="white" style={styles.icon}/>

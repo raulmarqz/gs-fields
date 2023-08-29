@@ -10,7 +10,7 @@ const winDiag = WinDiag();
 export default function MeasurementDetailsFooter() {
   const { 
     deleteMeasurement,
-    activateEditionMode,
+    setEditMeasurementMode,
   } = useMainContext();
 
   const [ deleteDialog, setDeleteDialog ] = useState(false);
@@ -30,7 +30,8 @@ export default function MeasurementDetailsFooter() {
         <TouchableOpacity>
           <Icon name="navigation-variant" type="material-community" color="white"/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => activateEditionMode()}>
+        <TouchableOpacity onPress={() => setEditMeasurementMode(true)}>
+        {/* <TouchableOpacity onPress={() => activateEditionMode()}> */}
           <Icon name="edit" type="material" color="white"/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleDeleteMeasurementDialog()}>

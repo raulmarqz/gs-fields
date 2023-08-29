@@ -5,7 +5,7 @@ import useMainContext from '../../hooks/useMainContext';
 import { WinDiag } from '../../utils/constants';
 import MarkerSelected from './MarkerSelected';
 import MarkerVertex from './MarkerVertex';
-import CreatePolygonScreen from '../../screens/CreateMeasurementScreen';
+import CreateMeasurementScreen from '../../screens/CreateMeasurementScreen';
 
 const winDiag = WinDiag();
 
@@ -13,11 +13,13 @@ export default function MeasurementCreation({ mapView }) {
   
   const {
     createMeasurementMode,
-    createPolygonModeType,
-    editPolygonMode,
-    setEditPolygonMode,
+    createMeasurementModeType,
+    editMeasurementMode,
+    setEditMeasurementMode,
     setCoordinates,
     coordinates,
+    editVertexMode,
+    setEditVertexMode
   } = useMainContext();
 
   const [vertexSelected, setVertexSelected ] = useState(null);
@@ -29,16 +31,17 @@ export default function MeasurementCreation({ mapView }) {
   }, [coordinates])
 
   useEffect(() => {
-    if(editPolygonMode) getCamera();
-    if(editPolygonMode == false) setVertexSelected(null), setCoordinates(coordinates);
-  }, [camera, editPolygonMode]);
+    if(editVertexMode) getCamera();
+    if(editVertexMode == false) setVertexSelected(null), setCoordinates(coordinates);
+  }, [camera, editVertexMode]);
 
   useEffect(() => {
     setPrevCamera(camera);
-    if(editPolygonMode && (prevCamera.center.latitude != camera.center.latitude)) vertexEdition();
+    if(editVertexMode && (prevCamera?.center.latitude != camera?.center.latitude)) vertexEdition();
   }, [camera]);
 
   const getCamera = async() => {
+    console.log("get camera")
     const cam = await mapView.current.getCamera();
     setCamera(cam);
   };
@@ -47,7 +50,7 @@ export default function MeasurementCreation({ mapView }) {
     const cam = await mapView.current.getCamera();
     setVertexSelected(coordinate);
     setPrevCamera(cam);
-    if(editPolygonMode == false) setEditPolygonMode(true);
+    if(editVertexMode == false) setEditVertexMode(true);
   };
 
   const coordRelation = () => {
@@ -61,7 +64,7 @@ export default function MeasurementCreation({ mapView }) {
   };
 
   const vertexEdition = () => {
-    if(editPolygonMode) {
+    if(editVertexMode) {
       const vertexSelectedId = vertexSelected.id;
       const oldCoords = [...coordinates];
       // editar vertice del poligono y del vertice seleciconado mediante el id
@@ -76,7 +79,7 @@ export default function MeasurementCreation({ mapView }) {
     };
   };
 
-  if(!createMeasurementMode || createPolygonModeType == null || coordinates.length <= 0) return null;
+  if(!createMeasurementMode || createMeasurementModeType == null || coordinates.length <= 0) return null;
   return (
     <>
       <Polygon

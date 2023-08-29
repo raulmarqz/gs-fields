@@ -14,7 +14,10 @@ export default function Measurements({ mapView }) {
     poi,
     visibleLayers,
     handleMeasurementPress,
-    measurementSelected
+    measurementSelected,
+    editMeasurementMode,
+    createMeasurementMode,
+    editMeasurementModeType,
   } = useMainContext();
 
   const handlePress = (area) => {
@@ -36,6 +39,7 @@ export default function Measurements({ mapView }) {
     ))
   );
   
+  if((editMeasurementMode && editMeasurementModeType != null) || createMeasurementMode) return null;
   return (
     <>
       {visibleLayers.includes('areas') && renderAreas()}

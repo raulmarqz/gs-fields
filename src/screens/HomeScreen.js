@@ -8,24 +8,27 @@ import { _getLocationAsync } from '../config/permissions';
 import { ZoomToUserLocation } from '../utils/mapFunctions';
 import { INITIAL_REGION } from '../utils/constants';
 import useMainContext from '../hooks/useMainContext';
-import CreatePolygonTypeModal from '../interface/CreatePolygonTypeModal';
+import CreateMeasurementTypeModal from '../interface/modals/CreateMeasurementTypeModal';
 import CreateMeasurementScreen from './CreateMeasurementScreen';
 import HeaderIcons from '../interface/HeaderIcons';
 import MeasurementCreation from '../components/Map/MeasurementCreation';
 import MeasurementDetailsScreen from './MeasurementDetailsScreen';
 import Measurements from '../components/Map/Measurements';
+import MeasurementEditionModal from '../interface/modals/MeasurementEditionModal';
 
 export default function HomeScreen() {
   const mapView = useRef(null);
 
   const {
     createMeasurementMode,
-    createPolygonModeType,
-    editPolygonMode,
-    setEditPolygonMode,
+    createMeasurementModeType,
+    editMeasurementMode,
+    setEditMeasurementMode,
     setCoordinates,
     coordinates,
     mapType,
+    editVertexMode,
+    setEditVertexMode
   } = useMainContext();
 
   // const [ coordinates, setCoordinates ] = useState([]);
@@ -35,7 +38,7 @@ export default function HomeScreen() {
   }, [])
 
   const handleMapPressed = (event) => {
-    if(createMeasurementMode && createPolygonModeType && editPolygonMode == false) {
+    if(createMeasurementMode && createMeasurementModeType && editVertexMode == false) {
       const { coordinate } = event.nativeEvent;
       const coordinateData = {
         id: coordinates.length,
@@ -44,7 +47,7 @@ export default function HomeScreen() {
       setCoordinates([...coordinates, coordinateData])
     };
 
-    if(editPolygonMode) setEditPolygonMode(false);
+    if(editVertexMode) setEditVertexMode(false);
   };
 
   const deleteLastCoordinate = () => {
@@ -79,8 +82,9 @@ export default function HomeScreen() {
         <FloatButton/>
         <UserLocationButton mapView={mapView}/>
         <Extent mapView={mapView}/>
-        <CreatePolygonTypeModal/>
+        <CreateMeasurementTypeModal/>
         <MeasurementDetailsScreen/>
+        <MeasurementEditionModal/>
         <CreateMeasurementScreen deleteLastCoordinate={deleteLastCoordinate}/>
       </View>
     </>

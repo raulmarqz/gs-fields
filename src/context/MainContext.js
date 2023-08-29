@@ -14,8 +14,9 @@ export default function MainProvider(props) {
 	const [ createMeasurementMode, setCreateMeasurementMode ] = useState(false);
 	const [ createMeasurementModeType, setCreateMeasurementModeType ] = useState(null);
   const [ editMeasurementMode, setEditMeasurementMode ] = useState(false);
-  const [ creationType, setCreationType ] = useState('')
-	const [ editPolygonMode, setEditPolygonMode ] = useState(false);
+  const [ editMeasurementModeType, setEditMeasurementModeType ] = useState(null);  // measurement, data
+  const [ editVertexMode, setEditVertexMode ] = useState(false);
+  const [ creationType, setCreationType ] = useState('');
   const [ measurementDetailsMode, setMeasurementDetailsMode ] = useState(false);
 	const [ coordinates, setCoordinates ] = useState([]);
   const [ showOptionsBottomSheet, setShowOptionsBottomSheet ] = useState(false);
@@ -45,9 +46,14 @@ export default function MainProvider(props) {
     setMapType(data.mapType);
   };
 
+  const getCoordsWithId = (coords) => {
+    const coordinates = coords.map( (c, index) => ({id: index, latitude: c.latitude, longitude: c.longitude}));
+    return coordinates;
+  };
+
 	const deactivateCreatePolygonMode = () => {
 		setCreateMeasurementMode(false);
-		setCreatePolygonModeType(null);
+		setCreateMeasurementModeType(null);
     setEditPolygonMode(false);
     setCoordinates([]);
 	};
@@ -57,14 +63,15 @@ export default function MainProvider(props) {
     setMeasurementSelected(null);
   };
 
-  const activateEditionMode = () => {
+  const activateEditionMeasurementMode = (editType) => {
     console.log("Activ mode editción")
     setMeasurementDetailsMode(false);
-    setCoordinates(measurementSelected.coordinates);
+    setCoordinates(getCoordsWithId(measurementSelected.coordinates));
     // setMeasurementSelected(null);
     setCreateMeasurementMode(true);
-    setCreatePolygonModeType('area')
+    setCreateMeasurementModeType('area')
     setEditMeasurementMode(true);
+    setEditMeasurementModeType(editType);
   };
 
   const handleOptionsBottomSheet = () => {
@@ -144,7 +151,8 @@ export default function MainProvider(props) {
 		createMeasurementMode,
 		createMeasurementModeType,
     creationType,
-		editPolygonMode,
+		editMeasurementMode,
+    editMeasurementModeType,
 		coordinates,
     showOptionsBottomSheet,
     mapType,
@@ -157,11 +165,13 @@ export default function MainProvider(props) {
     distances, 
     poi,
     editMeasurementMode,
+    editVertexMode,
 		setCreateMeasurementMode,
 		setCreateMeasurementModeType,
     setCreationType,
 		deactivateCreatePolygonMode,
-		setEditPolygonMode,
+		setEditMeasurementMode,
+    setEditMeasurementModeType,
 		setCoordinates,
     setShowOptionsBottomSheet,
     handleOptionsBottomSheet,
@@ -176,9 +186,10 @@ export default function MainProvider(props) {
     handleMeasurementPress,
     deleteMeasurement,
     deactivateDetailsMode,
-    activateEditionMode,
+    activateEditionMeasurementMode,
     setEditMeasurementMode,
-    handleMapType
+    handleMapType,
+    setEditVertexMode
 	};
   
   return (

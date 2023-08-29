@@ -1,19 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Icon } from 'react-native-elements';
-import useMainContext from '../hooks/useMainContext';
-import { WinDiag } from '../utils/constants';
+import useMainContext from '../../hooks/useMainContext';
+import { WinDiag } from '../../utils/constants';
 
 const winDiag = WinDiag();
 
-export default function CreatePolygonTypeModal() {
+export default function CreateMeasurementTypeModal() {
   const {
     createMeasurementMode,
-    createPolygonModeType,
-    setCreatePolygonModeType
+    createMeasurementModeType,
+    setCreateMeasurementModeType
   } = useMainContext();
 
-  if(!(createMeasurementMode && createPolygonModeType == null)) return null;
+  if(!(createMeasurementMode && createMeasurementModeType == null)) return null;
   return (
     <View style={styles.mainContainer}>
       <View style={styles.modalContainer}>
@@ -23,7 +23,7 @@ export default function CreatePolygonTypeModal() {
             styles.pressables,
             {backgroundColor: pressed ? 'rgba(220,220,220,1)': "white"}
           ]}
-          onPress={() => setCreatePolygonModeType('manual')}
+          onPress={() => setCreateMeasurementModeType('manual')}
         >
           <Icon name="pointer" type="evilicon" size={winDiag*4}/>
           <Text style={styles.texts}>Medición manual</Text>
@@ -33,7 +33,7 @@ export default function CreatePolygonTypeModal() {
             styles.pressables,
             {backgroundColor: pressed ? 'rgba(220,220,220,1)': "white"}
           ]}
-          onPress={() => setCreatePolygonModeType('gps')}
+          onPress={() => setCreateMeasurementModeType('gps')}
         >
           <Icon name="gps-fixed" type="material" size={winDiag*4}/>
           <Text style={styles.texts}>Medición GPS</Text>
